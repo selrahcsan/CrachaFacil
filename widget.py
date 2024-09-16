@@ -30,7 +30,7 @@ def cria_banco_sql():
         conn.close()
         msg = QMessageBox()
         msg.setText("Banco Criado com sucesso.")
-        msg.exec_()
+        msg.exec()
 
     except sqlite3.Error as e:
         msg = QMessageBox()

@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>591</width>
+     <width>581</width>
      <height>331</height>
     </rect>
    </property>
@@ -29,19 +29,15 @@
     <attribute name="title">
      <string>Configurações</string>
     </attribute>
-    <widget class="QPushButton" name="criar_banco_sqlite">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>101</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Criar Banco</string>
-     </property>
-    </widget>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="criar_banco_sqlite">
+       <property name="text">
+        <string>Criar Banco</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

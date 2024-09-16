@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QPushButton, QSizePolicy, QTabWidget,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFormLayout, QPushButton, QSizePolicy,
+    QTabWidget, QWidget)
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
@@ -25,13 +25,17 @@ class Ui_Widget(object):
         Widget.resize(612, 350)
         self.tabWidget = QTabWidget(Widget)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(10, 10, 591, 331))
+        self.tabWidget.setGeometry(QRect(10, 10, 581, 331))
         self.tabWidget.setTabPosition(QTabWidget.TabPosition.West)
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
+        self.formLayout = QFormLayout(self.tab)
+        self.formLayout.setObjectName(u"formLayout")
         self.criar_banco_sqlite = QPushButton(self.tab)
         self.criar_banco_sqlite.setObjectName(u"criar_banco_sqlite")
-        self.criar_banco_sqlite.setGeometry(QRect(10, 20, 101, 24))
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.criar_banco_sqlite)
+
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
