@@ -12,8 +12,6 @@ from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 from ui_form import Ui_Widget
 
 def cria_banco_sql():
-
-
     try:
         conn = sqlite3.connect('cracha.db')
         cursor = conn.cursor()
@@ -37,16 +35,35 @@ def cria_banco_sql():
     except sqlite3.Error as e:
         msg = QMessageBox()
         msg.setText(f"Erro ao criar o banco de dados: {e}")
-        msg.exec_()
+        msg.exec()
 
 def banco_existe():
     arquivo = 'cracha.db'
     if os.path.isfile(arquivo):
         msg = QMessageBox()
         msg.setText("Banco de dados já existe!")
-        msg.exec_()
+        msg.exec()
     else:
         cria_banco_sql()
+
+def deletar_banco():
+    arquivo = 'cracha.db'
+    try:
+        if os.path.exists(arquivo):
+            os.remove(arquivo)
+            msg = QMessageBox()
+            msg.setText("Banco deletado com sucesso")
+            msg.exec_()
+        else:
+            msg = QMessageBox()
+            msg.setText("Banco não encontrado")
+            msg.exec_()
+    except Exception as e:
+        msg = QMessageBox()
+        msg.setText(f"Banco nao pode ser deletado! {e}")
+        msg.exec_()
+
+
 
 
 
@@ -61,5 +78,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = Widget()
     widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
+    widget.ui.deletar_banco.clicked.connect(deletar_banco)
     widget.show()
     sys.exit(app.exec())
