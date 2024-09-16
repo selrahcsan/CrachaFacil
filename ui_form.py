@@ -36,6 +36,11 @@ class Ui_Widget(object):
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.criar_banco_sqlite)
 
+        self.deletar_banco = QPushButton(self.tab)
+        self.deletar_banco.setObjectName(u"deletar_banco")
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.deletar_banco)
+
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
@@ -49,6 +54,7 @@ class Ui_Widget(object):
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Widget", None))
         self.criar_banco_sqlite.setText(QCoreApplication.translate("Widget", u"Criar Banco", None))
+        self.deletar_banco.setText(QCoreApplication.translate("Widget", u"Deletar Banco", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Widget", u"Configura\u00e7\u00f5es", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Widget", u"Tab 2", None))
     # retranslateUi
