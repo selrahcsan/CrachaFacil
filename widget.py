@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-
+import os
 import sys
 import sqlite3
 
@@ -12,6 +12,8 @@ from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 from ui_form import Ui_Widget
 
 def cria_banco_sql():
+
+
     try:
         conn = sqlite3.connect('cracha.db')
         cursor = conn.cursor()
@@ -37,6 +39,16 @@ def cria_banco_sql():
         msg.setText(f"Erro ao criar o banco de dados: {e}")
         msg.exec_()
 
+def banco_existe():
+    arquivo = 'cracha.db'
+    if os.path.isfile(arquivo):
+        msg = QMessageBox()
+        msg.setText("Banco de dados já existe!")
+        msg.exec_()
+    else:
+        cria_banco_sql()
+
+
 
 class Widget(QWidget):
     def __init__(self, parent=None):
@@ -48,6 +60,6 @@ class Widget(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = Widget()
-    widget.ui.criar_banco_sqlite.clicked.connect(cria_banco_sql)
+    widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
     widget.show()
     sys.exit(app.exec())
