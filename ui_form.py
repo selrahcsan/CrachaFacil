@@ -15,18 +15,111 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QPushButton, QSizePolicy,
-    QTabWidget, QWidget)
+from PySide6.QtWidgets import (QApplication, QDateEdit, QFormLayout, QFrame,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QStackedWidget, QTabWidget, QWidget)
 
 class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
-        Widget.resize(612, 350)
+        Widget.resize(592, 325)
         self.tabWidget = QTabWidget(Widget)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(10, 10, 581, 331))
+        self.tabWidget.setGeometry(QRect(10, 10, 561, 301))
         self.tabWidget.setTabPosition(QTabWidget.TabPosition.West)
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName(u"tab_2")
+        self.stackedWidget = QStackedWidget(self.tab_2)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.stackedWidget.setGeometry(QRect(10, 10, 511, 281))
+        self.menu_funcionarios = QWidget()
+        self.menu_funcionarios.setObjectName(u"menu_funcionarios")
+        self.inserir_funcionario = QPushButton(self.menu_funcionarios)
+        self.inserir_funcionario.setObjectName(u"inserir_funcionario")
+        self.inserir_funcionario.setGeometry(QRect(10, 30, 80, 24))
+        self.stackedWidget.addWidget(self.menu_funcionarios)
+        self.inserir_usuarios = QWidget()
+        self.inserir_usuarios.setObjectName(u"inserir_usuarios")
+        self.label_imagen = QLabel(self.inserir_usuarios)
+        self.label_imagen.setObjectName(u"label_imagen")
+        self.label_imagen.setGeometry(QRect(360, 50, 151, 191))
+        self.label_imagen.setFrameShape(QFrame.Shape.StyledPanel)
+        self.label_imagen.setMargin(-1)
+        self.label_7 = QLabel(self.inserir_usuarios)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(0, 0, 261, 31))
+        font = QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        self.label_7.setFont(font)
+        self.upload_foto = QPushButton(self.inserir_usuarios)
+        self.upload_foto.setObjectName(u"upload_foto")
+        self.upload_foto.setGeometry(QRect(360, 250, 141, 24))
+        self.cadastrar = QPushButton(self.inserir_usuarios)
+        self.cadastrar.setObjectName(u"cadastrar")
+        self.cadastrar.setGeometry(QRect(0, 230, 80, 24))
+        self.voltar = QPushButton(self.inserir_usuarios)
+        self.voltar.setObjectName(u"voltar")
+        self.voltar.setGeometry(QRect(90, 230, 80, 24))
+        self.widget = QWidget(self.inserir_usuarios)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(0, 50, 351, 171))
+        self.formLayout_2 = QFormLayout(self.widget)
+        self.formLayout_2.setObjectName(u"formLayout_2")
+        self.formLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.label = QLabel(self.widget)
+        self.label.setObjectName(u"label")
+
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label)
+
+        self.lineEdit_nome = QLineEdit(self.widget)
+        self.lineEdit_nome.setObjectName(u"lineEdit_nome")
+
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.lineEdit_nome)
+
+        self.label_2 = QLabel(self.widget)
+        self.label_2.setObjectName(u"label_2")
+
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_2)
+
+        self.lineEdit_cargo = QLineEdit(self.widget)
+        self.lineEdit_cargo.setObjectName(u"lineEdit_cargo")
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.lineEdit_cargo)
+
+        self.label_3 = QLabel(self.widget)
+        self.label_3.setObjectName(u"label_3")
+
+        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_3)
+
+        self.lineEdit_setor = QLineEdit(self.widget)
+        self.lineEdit_setor.setObjectName(u"lineEdit_setor")
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.lineEdit_setor)
+
+        self.label_4 = QLabel(self.widget)
+        self.label_4.setObjectName(u"label_4")
+
+        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_4)
+
+        self.lineEdit_matricula = QLineEdit(self.widget)
+        self.lineEdit_matricula.setObjectName(u"lineEdit_matricula")
+
+        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.lineEdit_matricula)
+
+        self.label_5 = QLabel(self.widget)
+        self.label_5.setObjectName(u"label_5")
+
+        self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_5)
+
+        self.dateEdit_admissao = QDateEdit(self.widget)
+        self.dateEdit_admissao.setObjectName(u"dateEdit_admissao")
+
+        self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.dateEdit_admissao)
+
+        self.stackedWidget.addWidget(self.inserir_usuarios)
+        self.tabWidget.addTab(self.tab_2, "")
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
         self.formLayout = QFormLayout(self.tab)
@@ -42,20 +135,31 @@ class Ui_Widget(object):
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.deletar_banco)
 
         self.tabWidget.addTab(self.tab, "")
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(Widget)
+
+        self.tabWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(Widget)
     # setupUi
 
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Widget", None))
+        self.inserir_funcionario.setText(QCoreApplication.translate("Widget", u"Inserir", None))
+        self.label_7.setText(QCoreApplication.translate("Widget", u"Inserir Funcion\u00e1rios : ", None))
+        self.upload_foto.setText(QCoreApplication.translate("Widget", u"Upload Foto", None))
+        self.cadastrar.setText(QCoreApplication.translate("Widget", u"Cadastrar", None))
+        self.voltar.setText(QCoreApplication.translate("Widget", u"Voltar", None))
+        self.label.setText(QCoreApplication.translate("Widget", u"Nome :", None))
+        self.label_2.setText(QCoreApplication.translate("Widget", u"Cargo :", None))
+        self.label_3.setText(QCoreApplication.translate("Widget", u"Setor :  ", None))
+        self.label_4.setText(QCoreApplication.translate("Widget", u"Matr\u00edcula :", None))
+        self.label_5.setText(QCoreApplication.translate("Widget", u"Admiss\u00e3o :", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Widget", u"Funcion\u00e1rios", None))
         self.criar_banco_sqlite.setText(QCoreApplication.translate("Widget", u"Criar Banco", None))
         self.deletar_banco.setText(QCoreApplication.translate("Widget", u"Deletar Banco", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Widget", u"Configura\u00e7\u00f5es", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Widget", u"Tab 2", None))
     # retranslateUi
 

@@ -53,19 +53,47 @@ def deletar_banco():
             os.remove(arquivo)
             msg = QMessageBox()
             msg.setText("Banco deletado com sucesso")
-            msg.exec_()
+            msg.exec()
         else:
             msg = QMessageBox()
             msg.setText("Banco não encontrado")
-            msg.exec_()
+            msg.exec()
     except Exception as e:
         msg = QMessageBox()
         msg.setText(f"Banco nao pode ser deletado! {e}")
-        msg.exec_()
+        msg.exec()
+
+
+def inserir_funcionarios():
+    widget.ui.stackedWidget.setCurrentIndex(1)
 
 
 
 
+def voltar_menu_funcionarios():
+    widget.ui.stackedWidget.setCurrentIndex(0)
+
+
+def cadastrar():
+    nome = widget.ui.lineEdit_nome.text()
+    cargo = widget.ui.lineEdit_cargo.text()
+    setor = widget.ui.lineEdit_setor.text()
+    matricula = widget.ui.lineEdit_matricula.text()
+    data_admissao = widget.ui.dateEdit_admissao.date().toString("yyyy-MMdd")
+    try:
+        conn = sqlite3.connect('cracha.db')
+        cursor = conn.cursor()
+        cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
+            VALUES (?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao, ))
+        conn.commit()
+        conn.close()
+        msg = QMessageBox()
+        msg.setText("Cadastrado com Sucesso")
+        msg.exec()
+        widget.ui.lineEdit_nome.clear()
+
+    except sqlite3.Error as e:
+        print(f"Erro ao cadastrar funcionário: {e}")
 
 class Widget(QWidget):
     def __init__(self, parent=None):
@@ -79,5 +107,9 @@ if __name__ == "__main__":
     widget = Widget()
     widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
     widget.ui.deletar_banco.clicked.connect(deletar_banco)
+    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+    widget.ui.voltar.clicked.connect(voltar_menu_funcionarios)
+    widget.ui.cadastrar.clicked.connect(cadastrar)
+
     widget.show()
     sys.exit(app.exec())
