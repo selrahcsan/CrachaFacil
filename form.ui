@@ -60,7 +60,7 @@
       </widget>
      </widget>
      <widget class="QWidget" name="inserir_usuarios">
-      <widget class="QLabel" name="label_imagen">
+      <widget class="QLabel" name="image_label">
        <property name="geometry">
         <rect>
          <x>360</x>
@@ -93,19 +93,6 @@
        </property>
        <property name="text">
         <string>Inserir Funcionários : </string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="upload_foto">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>250</y>
-         <width>141</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Upload Foto</string>
        </property>
       </widget>
       <widget class="QPushButton" name="cadastrar">
