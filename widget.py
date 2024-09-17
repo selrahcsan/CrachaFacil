@@ -3,7 +3,10 @@ import os
 import sys
 import sqlite3
 
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
+from PySide6.QtGui import QPixmap
+from PySide6.QtCore import QDate
+
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -37,6 +40,7 @@ def cria_banco_sql():
         msg.setText(f"Erro ao criar o banco de dados: {e}")
         msg.exec()
 
+
 def banco_existe():
     arquivo = 'cracha.db'
     if os.path.isfile(arquivo):
@@ -46,6 +50,7 @@ def banco_existe():
     else:
         cria_banco_sql()
 
+
 def deletar_banco():
     arquivo = 'cracha.db'
     try:
@@ -53,18 +58,108 @@ def deletar_banco():
             os.remove(arquivo)
             msg = QMessageBox()
             msg.setText("Banco deletado com sucesso")
-            msg.exec_()
+            msg.exec()
         else:
             msg = QMessageBox()
             msg.setText("Banco não encontrado")
-            msg.exec_()
+            msg.exec()
     except Exception as e:
         msg = QMessageBox()
         msg.setText(f"Banco nao pode ser deletado! {e}")
-        msg.exec_()
+        msg.exec()
 
 
+def inserir_funcionarios():
+    widget.ui.stackedWidget.setCurrentIndex(1)
+    limpar_formularios()
 
+
+def voltar_menu_funcionarios():
+    limpar_formularios()
+    widget.ui.stackedWidget.setCurrentIndex(0)
+
+
+def image_upload():
+    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.png *.jpg)")
+
+    if file_name:
+        pixmap = QPixmap(file_name)
+        widget.ui.image_label.setPixmap(pixmap)
+        widget.ui.image_label.setScaledContents(True)
+        return file_name  # Retorna o nome do arquivo selecionado
+
+
+def cadastrar():
+    nome = widget.ui.lineEdit_nome.text()
+    cargo = widget.ui.lineEdit_cargo.text()
+    setor = widget.ui.lineEdit_setor.text()
+    matricula = widget.ui.lineEdit_matricula.text()
+    data_admissao = widget.ui.dateEdit_admissao.date().toString("yyyy-MM-dd")
+
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Question)
+    msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    msg.setWindowTitle('Imagem Funcionário')
+    msg.setText("Adicionar Foto ?")
+    msg.setDefaultButton(QMessageBox.Yes)
+    tem_foto = msg.exec()
+
+    if tem_foto == QMessageBox.Yes:
+        file_name = image_upload()
+        if file_name:
+            imagem = convert_to_binary(file_name)
+            try:
+                conn = sqlite3.connect('cracha.db')
+                cursor = conn.cursor()
+                cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao, foto)
+                    VALUES (?, ?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao, imagem))
+                conn.commit()
+                conn.close()
+                msg = QMessageBox()
+                msg.setText("Cadastrado com Sucesso")
+                msg.exec()
+                limpar_formularios()
+            except sqlite3.Error as e:
+                msg.setIcon(QMessageBox.Critical)
+                msg.setWindowTitle("Erro")
+                msg.setText("Ocorreu um erro ao cadastrar no banco:")
+                msg.setInformativeText(f'{e}')
+                msg.setStandardButtons(QMessageBox.Ok)
+
+    if tem_foto == QMessageBox.No:
+        try:
+            conn = sqlite3.connect('cracha.db')
+            cursor = conn.cursor()
+            cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
+                VALUES (?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao))
+            conn.commit()
+            conn.close()
+            msg = QMessageBox()
+            msg.setText("Cadastrado com Sucesso")
+            msg.exec()
+            limpar_formularios()
+
+        except sqlite3.Error as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle("Erro")
+            msg.setText("Ocorreu um erro ao cadastrar no banco:")
+            msg.setInformativeText(f'{e}')
+            msg.setStandardButtons(QMessageBox.Ok)
+
+
+def convert_to_binary(filename):
+    with open(filename, 'rb') as file:
+        blob_data = file.read()
+    return blob_data
+
+def limpar_formularios():
+    widget.ui.lineEdit_nome.clear()
+    widget.ui.lineEdit_cargo.clear()
+    widget.ui.lineEdit_setor.clear()
+    widget.ui.lineEdit_matricula.clear()
+    widget.ui.dateEdit_admissao.date().currentDate()
+    widget.ui.image_label.clear()
 
 
 class Widget(QWidget):
@@ -77,7 +172,17 @@ class Widget(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = Widget()
+
+    # Botãos Configurações -----------------------------------------------------------------
     widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
     widget.ui.deletar_banco.clicked.connect(deletar_banco)
+
+    # Botãos Funcinários - Cadastrar  ------------------------------------------------------
+    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+    widget.ui.voltar.clicked.connect(voltar_menu_funcionarios)
+    widget.ui.cadastrar.clicked.connect(cadastrar)
+    widget.ui.dateEdit_admissao.setDate(QDate.currentDate())
+    # --------------------------------------------------------------------------------------
+
     widget.show()
     sys.exit(app.exec())
