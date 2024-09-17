@@ -5,6 +5,9 @@ import sqlite3
 
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
 
+from PySide6.QtCore import QDate
+
+
 # Important:
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
@@ -91,7 +94,10 @@ def cadastrar():
         msg.setText("Cadastrado com Sucesso")
         msg.exec()
         widget.ui.lineEdit_nome.clear()
-
+        widget.ui.lineEdit_cargo.clear()
+        widget.ui.lineEdit_setor.clear()
+        widget.ui.lineEdit_matricula.clear()
+        widget.ui.dateEdit_admissao.date().currentDate()
     except sqlite3.Error as e:
         print(f"Erro ao cadastrar funcionário: {e}")
 
@@ -110,6 +116,7 @@ if __name__ == "__main__":
     widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
     widget.ui.voltar.clicked.connect(voltar_menu_funcionarios)
     widget.ui.cadastrar.clicked.connect(cadastrar)
+    widget.ui.dateEdit_admissao.setDate(QDate.currentDate())
 
     widget.show()
     sys.exit(app.exec())

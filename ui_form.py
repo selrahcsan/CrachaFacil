@@ -62,59 +62,60 @@ class Ui_Widget(object):
         self.voltar = QPushButton(self.inserir_usuarios)
         self.voltar.setObjectName(u"voltar")
         self.voltar.setGeometry(QRect(90, 230, 80, 24))
-        self.widget = QWidget(self.inserir_usuarios)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(0, 50, 351, 171))
-        self.formLayout_2 = QFormLayout(self.widget)
+        self.layoutWidget = QWidget(self.inserir_usuarios)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(0, 50, 351, 171))
+        self.formLayout_2 = QFormLayout(self.layoutWidget)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.label = QLabel(self.widget)
+        self.label = QLabel(self.layoutWidget)
         self.label.setObjectName(u"label")
 
         self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label)
 
-        self.lineEdit_nome = QLineEdit(self.widget)
+        self.lineEdit_nome = QLineEdit(self.layoutWidget)
         self.lineEdit_nome.setObjectName(u"lineEdit_nome")
 
         self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.lineEdit_nome)
 
-        self.label_2 = QLabel(self.widget)
+        self.label_2 = QLabel(self.layoutWidget)
         self.label_2.setObjectName(u"label_2")
 
         self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_2)
 
-        self.lineEdit_cargo = QLineEdit(self.widget)
+        self.lineEdit_cargo = QLineEdit(self.layoutWidget)
         self.lineEdit_cargo.setObjectName(u"lineEdit_cargo")
 
         self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.lineEdit_cargo)
 
-        self.label_3 = QLabel(self.widget)
+        self.label_3 = QLabel(self.layoutWidget)
         self.label_3.setObjectName(u"label_3")
 
         self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_3)
 
-        self.lineEdit_setor = QLineEdit(self.widget)
+        self.lineEdit_setor = QLineEdit(self.layoutWidget)
         self.lineEdit_setor.setObjectName(u"lineEdit_setor")
 
         self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.lineEdit_setor)
 
-        self.label_4 = QLabel(self.widget)
+        self.label_4 = QLabel(self.layoutWidget)
         self.label_4.setObjectName(u"label_4")
 
         self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_4)
 
-        self.lineEdit_matricula = QLineEdit(self.widget)
+        self.lineEdit_matricula = QLineEdit(self.layoutWidget)
         self.lineEdit_matricula.setObjectName(u"lineEdit_matricula")
 
         self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.lineEdit_matricula)
 
-        self.label_5 = QLabel(self.widget)
+        self.label_5 = QLabel(self.layoutWidget)
         self.label_5.setObjectName(u"label_5")
 
         self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_5)
 
-        self.dateEdit_admissao = QDateEdit(self.widget)
+        self.dateEdit_admissao = QDateEdit(self.layoutWidget)
         self.dateEdit_admissao.setObjectName(u"dateEdit_admissao")
+        self.dateEdit_admissao.setCalendarPopup(True)
 
         self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.dateEdit_admissao)
 
@@ -139,7 +140,7 @@ class Ui_Widget(object):
         self.retranslateUi(Widget)
 
         self.tabWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Widget)
