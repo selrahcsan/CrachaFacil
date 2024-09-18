@@ -16,7 +16,7 @@ from ui_form import Ui_Widget
 
 def cria_banco_sql():
     try:
-        conn = sqlite3.connect('cracha.db')
+        conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
         create_table_sql = """
             CREATE TABLE IF NOT EXISTS funcionarios (
@@ -42,7 +42,7 @@ def cria_banco_sql():
 
 
 def banco_existe():
-    arquivo = 'cracha.db'
+    arquivo = 'cracha.sqlite'
     if os.path.isfile(arquivo):
         msg = QMessageBox()
         msg.setText("Banco de dados já existe!")
@@ -52,7 +52,7 @@ def banco_existe():
 
 
 def deletar_banco():
-    arquivo = 'cracha.db'
+    arquivo = 'cracha.sqlite'
     try:
         if os.path.exists(arquivo):
             os.remove(arquivo)
@@ -109,7 +109,7 @@ def cadastrar():
         if file_name:
             imagem = convert_to_binary(file_name)
             try:
-                conn = sqlite3.connect('cracha.db')
+                conn = sqlite3.connect('cracha.sqlite')
                 cursor = conn.cursor()
                 cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao, foto)
                     VALUES (?, ?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao, imagem))
@@ -128,7 +128,7 @@ def cadastrar():
 
     if tem_foto == QMessageBox.No:
         try:
-            conn = sqlite3.connect('cracha.db')
+            conn = sqlite3.connect('cracha.sqlite')
             cursor = conn.cursor()
             cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
                 VALUES (?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao))
