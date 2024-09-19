@@ -26,7 +26,7 @@ def cria_banco_sql():
             nome TEXT,
             nome_completo TEXT,
             cargo TEXT,
-            setor TEXT,,
+            setor TEXT,
             data_admissao DATE,
             foto BLOB
         );
@@ -98,7 +98,8 @@ def image_upload():
 
 
 def cadastrar():
-    nome = widget.ui.lineEdit_nome.text()
+    nome = widget.ui.lineEdit_nome.text().split()[0]
+    nome_completo = widget.ui.lineEdit_nome.text()
     cargo = widget.ui.lineEdit_cargo.text()
     setor = widget.ui.lineEdit_setor.text()
     matricula = widget.ui.lineEdit_matricula.text()
@@ -119,8 +120,8 @@ def cadastrar():
             try:
                 conn = sqlite3.connect('cracha.sqlite')
                 cursor = conn.cursor()
-                cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao, foto)
-                    VALUES (?, ?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao, imagem))
+                cursor.execute('''INSERT INTO funcionarios (matricula, nome, nome_completo, cargo, setor, data_admissao, foto)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)''', (matricula, nome, nome_completo, cargo, setor, data_admissao, imagem))
                 conn.commit()
                 conn.close()
                 msg = QMessageBox()
@@ -139,7 +140,7 @@ def cadastrar():
             conn = sqlite3.connect('cracha.sqlite')
             cursor = conn.cursor()
             cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
-                VALUES (?, ?, ?, ?, ?)''', (matricula, nome, cargo, setor, data_admissao))
+                VALUES (?, ?, ?, ?, ?, ?)''', (matricula, nome, nome_completo, cargo, setor, data_admissao))
             conn.commit()
             conn.close()
             msg = QMessageBox()
@@ -168,6 +169,10 @@ def limpar_formularios():
     widget.ui.lineEdit_matricula.clear()
     widget.ui.dateEdit_admissao.date().currentDate()
     widget.ui.image_label.clear()
+    widget.ui.lineEdit_atualizar_nome.clear()
+    widget.ui.lineEdit_atualizar_cargo.clear()
+    widget.ui.lineEdit_atualizar_setor.clear()
+    widget.ui.dateEdit_atualizar_admissao.date().currentDate()
 
 
 def importar_xls():
@@ -179,15 +184,17 @@ def importar_xls():
             conn = sqlite3.connect('cracha.sqlite')
             cursor = conn.cursor()
             for index, row in df.iterrows():
+                nome_completo = row['nome']
+                nome = nome_completo.split()[0]
                 cursor.execute('''
-                    INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
-                    VALUES (?, ?, ?, ?, ?)
-                    ''', (row['matricula'], row['nome'], row['cargo'], row['setor'], row['data_admissao']))
-                conn.commit()
-                conn.close()
-                msg = QMessageBox()
-                msg.setText("Dados importados com sucesso!")
-                msg.exec()
+                    INSERT INTO funcionarios (matricula, nome, nome_completo, cargo, setor, data_admissao)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (row['matricula'], nome , nome_completo , row['cargo'], row['setor'], row['data_admissao']))
+            conn.commit()
+            conn.close()
+            msg = QMessageBox()
+            msg.setText("Dados importados com sucesso!")
+            msg.exec()
         except Exception as e:
                 msg = QMessageBox()
                 msg.setText(f"Erro ao importar dados: {e}")
@@ -244,13 +251,13 @@ def buscar_matricula(matricula):
                 pixmap.loadFromData(foto_blob)
                 widget.ui.image_label_localizar.setScaledContents(True)
                 widget.ui.image_label_localizar.setPixmap(pixmap)
-            else:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Information)
-                msg.setWindowTitle("Informação")
-                msg.setText("Nenhum funcionário encontrado com a matrícula fornecida.")
-                msg.setStandardButtons(QMessageBox.Ok)
-                msg.exec()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Informação")
+            msg.setText("Nenhum funcionário encontrado com a matrícula fornecida.")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec()
 
     except sqlite3.Error as e:
         msg = QMessageBox()
@@ -263,6 +270,7 @@ def buscar_matricula(matricula):
 
 
 def localizar_clicked():
+    limpar_formularios()
     matricula = widget.ui.lineEdit_atualizar_matricula.text()
     if matricula:
         buscar_matricula(matricula)

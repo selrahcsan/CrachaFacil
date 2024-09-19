@@ -212,11 +212,13 @@ class Ui_Widget(object):
 
         self.voltar_2 = QPushButton(self.layoutWidget2)
         self.voltar_2.setObjectName(u"voltar_2")
+        self.voltar_2.setEnabled(False)
 
         self.horizontalLayout.addWidget(self.voltar_2)
 
         self.cadastrar_2 = QPushButton(self.layoutWidget2)
         self.cadastrar_2.setObjectName(u"cadastrar_2")
+        self.cadastrar_2.setEnabled(False)
 
         self.horizontalLayout.addWidget(self.cadastrar_2)
 
