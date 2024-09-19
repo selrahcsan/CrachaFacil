@@ -161,7 +161,6 @@ class Ui_Widget(object):
 
         self.lineEdit_atualizar_nome = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_nome.setObjectName(u"lineEdit_atualizar_nome")
-        self.lineEdit_atualizar_nome.setFrame(False)
         self.lineEdit_atualizar_nome.setReadOnly(True)
 
         self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.lineEdit_atualizar_nome)
@@ -221,10 +220,10 @@ class Ui_Widget(object):
 
         self.horizontalLayout.addWidget(self.cadastrar_2)
 
-        self.pushButton_3 = QPushButton(self.layoutWidget2)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.voltar_localizar_menu_inicial = QPushButton(self.layoutWidget2)
+        self.voltar_localizar_menu_inicial.setObjectName(u"voltar_localizar_menu_inicial")
 
-        self.horizontalLayout.addWidget(self.pushButton_3)
+        self.horizontalLayout.addWidget(self.voltar_localizar_menu_inicial)
 
         self.stackedWidget.addWidget(self.atualizar_funcionarios)
         self.tabWidget.addTab(self.tab_2, "")
@@ -276,7 +275,7 @@ class Ui_Widget(object):
         self.localizar.setText(QCoreApplication.translate("Widget", u"Localizar", None))
         self.voltar_2.setText(QCoreApplication.translate("Widget", u"Editar", None))
         self.cadastrar_2.setText(QCoreApplication.translate("Widget", u"Atualizar", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Widget", u"Menu Inicial", None))
+        self.voltar_localizar_menu_inicial.setText(QCoreApplication.translate("Widget", u"Menu Inicial", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Widget", u"Funcion\u00e1rios", None))
         self.criar_banco_sqlite.setText(QCoreApplication.translate("Widget", u"Criar Banco", None))
         self.deletar_banco.setText(QCoreApplication.translate("Widget", u"Deletar Banco", None))

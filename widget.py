@@ -309,6 +309,7 @@ if __name__ == "__main__":
 
     widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
     widget.ui.deletar_banco.clicked.connect(deletar_banco)
+    widget.ui.voltar_localizar_menu_inicial.clicked.connect(voltar_menu_funcionarios)
 
 
 

@@ -380,7 +380,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="voltar_localizar_menu_inicial">
           <property name="text">
            <string>Menu Inicial</string>
           </property>
