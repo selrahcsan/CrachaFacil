@@ -190,23 +190,20 @@ def importar_xls():
                 msg.setText(f"Erro ao importar dados: {e}")
                 msg.exec()
 
-def atualizar_funcionarios():
+def navegar_banco_usuarios():
     try:
         conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
         cursor.execute('SELECT matricula, nome, cargo, setor, data_admissao FROM funcionarios')
         resultados = cursor.fetchall()
         conn.close()
-        if resultados:
-            widget.ui.lineEdit_atualizar_matricula.setText(str(resultados[0]))
-            widget.ui.lineEdit_atualizar_nome.setText(str(resultados[1]))
-            widget.ui.lineEdit_atualizar_cargo.setText(str(resultados[2]))
-            widget.ui.lineEdit_atualizar_setor.setText(resultados[3])
-            widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultados[4], "yyyy-MM-dd"))
 
-        msg = QMessageBox()
-        msg.setText("Dados importados com sucesso!")
-        msg.exec()
+        if resultados:
+            widget.ui.lineEdit_atualizar_matricula.setText(str(resultados[0][0]))
+            widget.ui.lineEdit_atualizar_nome.setText(str(resultados[0][1]))
+            widget.ui.lineEdit_atualizar_cargo.setText(str(resultados[0][2]))
+            widget.ui.lineEdit_atualizar_setor.setText(resultados[0][3])
+            widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultados[0][4], "yyyy-MM-dd"))
 
     except sqlite3.Error as e:
         msg = QMessageBox()
@@ -246,7 +243,7 @@ if __name__ == "__main__":
 
     # Botãos Funcionários = Atualizar ------------------------------------------------------
 
-    widget.ui.localizar_mais_um.clicked.connect(atualizar_funcionarios)
+    widget.ui.localizar_mais_um.clicked.connect(navegar_banco_usuarios)
 
     # --------------------------------------------------------------------------------------
 
