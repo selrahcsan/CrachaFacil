@@ -42,7 +42,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="menu_funcionarios">
       <widget class="QPushButton" name="inserir_funcionario">
@@ -50,12 +50,25 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>80</width>
+         <width>101</width>
          <height>24</height>
         </rect>
        </property>
        <property name="text">
         <string>Inserir</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="importar_exel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>101</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Importar do Exel</string>
        </property>
       </widget>
      </widget>
@@ -188,6 +201,7 @@
        </layout>
       </widget>
      </widget>
+     <widget class="QWidget" name="Atualizar_funcionarios"/>
     </widget>
    </widget>
    <widget class="QWidget" name="tab">

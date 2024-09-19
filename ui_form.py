@@ -37,7 +37,10 @@ class Ui_Widget(object):
         self.menu_funcionarios.setObjectName(u"menu_funcionarios")
         self.inserir_funcionario = QPushButton(self.menu_funcionarios)
         self.inserir_funcionario.setObjectName(u"inserir_funcionario")
-        self.inserir_funcionario.setGeometry(QRect(10, 30, 80, 24))
+        self.inserir_funcionario.setGeometry(QRect(10, 30, 101, 24))
+        self.importar_exel = QPushButton(self.menu_funcionarios)
+        self.importar_exel.setObjectName(u"importar_exel")
+        self.importar_exel.setGeometry(QRect(10, 80, 101, 24))
         self.stackedWidget.addWidget(self.menu_funcionarios)
         self.inserir_usuarios = QWidget()
         self.inserir_usuarios.setObjectName(u"inserir_usuarios")
@@ -117,6 +120,9 @@ class Ui_Widget(object):
         self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.dateEdit_admissao)
 
         self.stackedWidget.addWidget(self.inserir_usuarios)
+        self.Atualizar_funcionarios = QWidget()
+        self.Atualizar_funcionarios.setObjectName(u"Atualizar_funcionarios")
+        self.stackedWidget.addWidget(self.Atualizar_funcionarios)
         self.tabWidget.addTab(self.tab_2, "")
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
@@ -137,7 +143,7 @@ class Ui_Widget(object):
         self.retranslateUi(Widget)
 
         self.tabWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Widget)
@@ -146,6 +152,7 @@ class Ui_Widget(object):
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"Widget", None))
         self.inserir_funcionario.setText(QCoreApplication.translate("Widget", u"Inserir", None))
+        self.importar_exel.setText(QCoreApplication.translate("Widget", u"Importar do Exel", None))
         self.label_7.setText(QCoreApplication.translate("Widget", u"Inserir Funcion\u00e1rios : ", None))
         self.cadastrar.setText(QCoreApplication.translate("Widget", u"Cadastrar", None))
         self.voltar.setText(QCoreApplication.translate("Widget", u"Voltar", None))

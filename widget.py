@@ -1,6 +1,7 @@
 # This Python file uses the following encoding: utf-8
 import os
 import sys
+import pandas as pd
 import sqlite3
 
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
@@ -162,6 +163,30 @@ def limpar_formularios():
     widget.ui.image_label.clear()
 
 
+def importar_xls():
+    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.xls *.xlsx *ods)")
+    if file_name:
+        try:
+            df = pd.read_excel(file_name)
+            df['data_admissao'] = df['data_admissao'].dt.strftime('%Y-%m-%d')
+            conn = sqlite3.connect('cracha.sqlite')
+            cursor = conn.cursor()
+            for index, row in df.iterrows():
+                cursor.execute('''
+                    INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
+                    VALUES (?, ?, ?, ?, ?)
+                    ''', (row['matricula'], row['nome'], row['cargo'], row['setor'], row['data_admissao']))
+                conn.commit()
+                conn.close()
+                msg = QMessageBox()
+                msg.setText("Dados importados com sucesso!")
+                msg.exec()
+        except Exception as e:
+                msg = QMessageBox()
+                msg.setText(f"Erro ao importar dados: {e}")
+                msg.exec()
+
+
 class Widget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -174,15 +199,22 @@ if __name__ == "__main__":
     widget = Widget()
 
     # Botãos Configurações -----------------------------------------------------------------
+
     widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
     widget.ui.deletar_banco.clicked.connect(deletar_banco)
 
     # Botãos Funcinários - Cadastrar  ------------------------------------------------------
-    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+
     widget.ui.voltar.clicked.connect(voltar_menu_funcionarios)
     widget.ui.cadastrar.clicked.connect(cadastrar)
     widget.ui.dateEdit_admissao.setDate(QDate.currentDate())
+
     # --------------------------------------------------------------------------------------
+
+    # Botãos Menu Iniciar ------------------------------------------------------------------
+
+    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+    widget.ui.importar_exel.clicked.connect(importar_xls)
 
     widget.show()
     sys.exit(app.exec())
