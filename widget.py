@@ -23,10 +23,10 @@ def cria_banco_sql():
         create_table_sql = """
             CREATE TABLE IF NOT EXISTS funcionarios (
             matricula INTEGER PRIMARY KEY NOT NULL,
-            nome TEXT NOT NULL,
-            cargo TEXT NOT NULL,
-            setor TEXT NOT NULL,
-            data_admissao DATE NOT NULL,
+            nome TEXT,
+            cargo TEXT,
+            setor TEXT,,
+            data_admissao DATE,
             foto BLOB
         );
         """
