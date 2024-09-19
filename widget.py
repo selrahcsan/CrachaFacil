@@ -91,7 +91,7 @@ def image_upload():
         pixmap = QPixmap(file_name)
         widget.ui.image_label.setPixmap(pixmap)
         widget.ui.image_label.setScaledContents(True)
-        return file_name  # Retorna o nome do arquivo selecionado
+        return file_name
 
 
 def cadastrar():
@@ -194,7 +194,7 @@ def navegar_banco_usuarios():
     try:
         conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
-        cursor.execute('SELECT matricula, nome, cargo, setor, data_admissao FROM funcionarios')
+        cursor.execute('SELECT matricula, nome, cargo, setor, data_admissao, foto FROM funcionarios')
         resultados = cursor.fetchall()
         conn.close()
 
@@ -204,6 +204,13 @@ def navegar_banco_usuarios():
             widget.ui.lineEdit_atualizar_cargo.setText(str(resultados[0][2]))
             widget.ui.lineEdit_atualizar_setor.setText(resultados[0][3])
             widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultados[0][4], "yyyy-MM-dd"))
+
+        foto_blob = resultados[0][5]
+        if foto_blob:
+            pixmap = QPixmap()
+            pixmap.loadFromData(foto_blob)
+            widget.ui.image_label_2.setScaledContents(True)
+            widget.ui.image_label_2.setPixmap(pixmap)
 
     except sqlite3.Error as e:
         msg = QMessageBox()
