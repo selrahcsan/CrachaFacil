@@ -24,6 +24,7 @@ def cria_banco_sql():
             CREATE TABLE IF NOT EXISTS funcionarios (
             matricula INTEGER PRIMARY KEY NOT NULL,
             nome TEXT,
+            nome_completo TEXT,
             cargo TEXT,
             setor TEXT,,
             data_admissao DATE,
