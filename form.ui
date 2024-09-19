@@ -215,7 +215,7 @@
       </widget>
      </widget>
      <widget class="QWidget" name="atualizar_funcionarios">
-      <widget class="QLabel" name="image_label_2">
+      <widget class="QLabel" name="image_label_localizar">
        <property name="geometry">
         <rect>
          <x>360</x>
@@ -263,7 +263,7 @@
         <string>PushButton</string>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -281,7 +281,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit_atualizar_matricula"/>
+         <widget class="QLineEdit" name="lineEdit_atualizar_matricula">
+          <property name="focusPolicy">
+           <enum>Qt::FocusPolicy::WheelFocus</enum>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_13">
@@ -305,7 +309,11 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit_atualizar_cargo"/>
+         <widget class="QLineEdit" name="lineEdit_atualizar_cargo">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_15">
@@ -315,7 +323,11 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="lineEdit_atualizar_setor"/>
+         <widget class="QLineEdit" name="lineEdit_atualizar_setor">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_17">
@@ -326,6 +338,9 @@
         </item>
         <item row="4" column="1">
          <widget class="QDateEdit" name="dateEdit_atualizar_admissao">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
           <property name="calendarPopup">
            <bool>true</bool>
           </property>
@@ -333,7 +348,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -344,7 +359,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="localizar">
           <property name="text">
            <string>Localizar</string>
           </property>

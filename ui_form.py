@@ -125,11 +125,11 @@ class Ui_Widget(object):
         self.stackedWidget.addWidget(self.inserir_usuarios)
         self.atualizar_funcionarios = QWidget()
         self.atualizar_funcionarios.setObjectName(u"atualizar_funcionarios")
-        self.image_label_2 = QLabel(self.atualizar_funcionarios)
-        self.image_label_2.setObjectName(u"image_label_2")
-        self.image_label_2.setGeometry(QRect(360, 50, 151, 191))
-        self.image_label_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.image_label_2.setMargin(-1)
+        self.image_label_localizar = QLabel(self.atualizar_funcionarios)
+        self.image_label_localizar.setObjectName(u"image_label_localizar")
+        self.image_label_localizar.setGeometry(QRect(360, 50, 151, 191))
+        self.image_label_localizar.setFrameShape(QFrame.Shape.StyledPanel)
+        self.image_label_localizar.setMargin(-1)
         self.label_12 = QLabel(self.atualizar_funcionarios)
         self.label_12.setObjectName(u"label_12")
         self.label_12.setGeometry(QRect(9, 0, 311, 31))
@@ -137,86 +137,91 @@ class Ui_Widget(object):
         self.localizar_mais_um = QPushButton(self.atualizar_funcionarios)
         self.localizar_mais_um.setObjectName(u"localizar_mais_um")
         self.localizar_mais_um.setGeometry(QRect(430, 250, 80, 24))
-        self.widget = QWidget(self.atualizar_funcionarios)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(0, 50, 351, 151))
-        self.formLayout_4 = QFormLayout(self.widget)
+        self.layoutWidget1 = QWidget(self.atualizar_funcionarios)
+        self.layoutWidget1.setObjectName(u"layoutWidget1")
+        self.layoutWidget1.setGeometry(QRect(0, 50, 351, 151))
+        self.formLayout_4 = QFormLayout(self.layoutWidget1)
         self.formLayout_4.setObjectName(u"formLayout_4")
         self.formLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.label_16 = QLabel(self.widget)
+        self.label_16 = QLabel(self.layoutWidget1)
         self.label_16.setObjectName(u"label_16")
 
         self.formLayout_4.setWidget(0, QFormLayout.LabelRole, self.label_16)
 
-        self.lineEdit_atualizar_matricula = QLineEdit(self.widget)
+        self.lineEdit_atualizar_matricula = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_matricula.setObjectName(u"lineEdit_atualizar_matricula")
+        self.lineEdit_atualizar_matricula.setFocusPolicy(Qt.FocusPolicy.WheelFocus)
 
         self.formLayout_4.setWidget(0, QFormLayout.FieldRole, self.lineEdit_atualizar_matricula)
 
-        self.label_13 = QLabel(self.widget)
+        self.label_13 = QLabel(self.layoutWidget1)
         self.label_13.setObjectName(u"label_13")
 
         self.formLayout_4.setWidget(1, QFormLayout.LabelRole, self.label_13)
 
-        self.lineEdit_atualizar_nome = QLineEdit(self.widget)
+        self.lineEdit_atualizar_nome = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_nome.setObjectName(u"lineEdit_atualizar_nome")
+        self.lineEdit_atualizar_nome.setFrame(False)
         self.lineEdit_atualizar_nome.setReadOnly(True)
 
         self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.lineEdit_atualizar_nome)
 
-        self.label_14 = QLabel(self.widget)
+        self.label_14 = QLabel(self.layoutWidget1)
         self.label_14.setObjectName(u"label_14")
 
         self.formLayout_4.setWidget(2, QFormLayout.LabelRole, self.label_14)
 
-        self.lineEdit_atualizar_cargo = QLineEdit(self.widget)
+        self.lineEdit_atualizar_cargo = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_cargo.setObjectName(u"lineEdit_atualizar_cargo")
+        self.lineEdit_atualizar_cargo.setReadOnly(True)
 
         self.formLayout_4.setWidget(2, QFormLayout.FieldRole, self.lineEdit_atualizar_cargo)
 
-        self.label_15 = QLabel(self.widget)
+        self.label_15 = QLabel(self.layoutWidget1)
         self.label_15.setObjectName(u"label_15")
 
         self.formLayout_4.setWidget(3, QFormLayout.LabelRole, self.label_15)
 
-        self.lineEdit_atualizar_setor = QLineEdit(self.widget)
+        self.lineEdit_atualizar_setor = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_setor.setObjectName(u"lineEdit_atualizar_setor")
+        self.lineEdit_atualizar_setor.setReadOnly(True)
 
         self.formLayout_4.setWidget(3, QFormLayout.FieldRole, self.lineEdit_atualizar_setor)
 
-        self.label_17 = QLabel(self.widget)
+        self.label_17 = QLabel(self.layoutWidget1)
         self.label_17.setObjectName(u"label_17")
 
         self.formLayout_4.setWidget(4, QFormLayout.LabelRole, self.label_17)
 
-        self.dateEdit_atualizar_admissao = QDateEdit(self.widget)
+        self.dateEdit_atualizar_admissao = QDateEdit(self.layoutWidget1)
         self.dateEdit_atualizar_admissao.setObjectName(u"dateEdit_atualizar_admissao")
+        self.dateEdit_atualizar_admissao.setReadOnly(True)
         self.dateEdit_atualizar_admissao.setCalendarPopup(True)
 
         self.formLayout_4.setWidget(4, QFormLayout.FieldRole, self.dateEdit_atualizar_admissao)
 
-        self.widget1 = QWidget(self.atualizar_funcionarios)
-        self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(0, 210, 351, 31))
-        self.horizontalLayout = QHBoxLayout(self.widget1)
+        self.layoutWidget2 = QWidget(self.atualizar_funcionarios)
+        self.layoutWidget2.setObjectName(u"layoutWidget2")
+        self.layoutWidget2.setGeometry(QRect(0, 210, 351, 31))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget2)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_4 = QPushButton(self.widget1)
-        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.localizar = QPushButton(self.layoutWidget2)
+        self.localizar.setObjectName(u"localizar")
 
-        self.horizontalLayout.addWidget(self.pushButton_4)
+        self.horizontalLayout.addWidget(self.localizar)
 
-        self.voltar_2 = QPushButton(self.widget1)
+        self.voltar_2 = QPushButton(self.layoutWidget2)
         self.voltar_2.setObjectName(u"voltar_2")
 
         self.horizontalLayout.addWidget(self.voltar_2)
 
-        self.cadastrar_2 = QPushButton(self.widget1)
+        self.cadastrar_2 = QPushButton(self.layoutWidget2)
         self.cadastrar_2.setObjectName(u"cadastrar_2")
 
         self.horizontalLayout.addWidget(self.cadastrar_2)
 
-        self.pushButton_3 = QPushButton(self.widget1)
+        self.pushButton_3 = QPushButton(self.layoutWidget2)
         self.pushButton_3.setObjectName(u"pushButton_3")
 
         self.horizontalLayout.addWidget(self.pushButton_3)
@@ -268,7 +273,7 @@ class Ui_Widget(object):
         self.label_14.setText(QCoreApplication.translate("Widget", u"Cargo :", None))
         self.label_15.setText(QCoreApplication.translate("Widget", u"Setor :  ", None))
         self.label_17.setText(QCoreApplication.translate("Widget", u"Admiss\u00e3o :", None))
-        self.pushButton_4.setText(QCoreApplication.translate("Widget", u"Localizar", None))
+        self.localizar.setText(QCoreApplication.translate("Widget", u"Localizar", None))
         self.voltar_2.setText(QCoreApplication.translate("Widget", u"Editar", None))
         self.cadastrar_2.setText(QCoreApplication.translate("Widget", u"Atualizar", None))
         self.pushButton_3.setText(QCoreApplication.translate("Widget", u"Menu Inicial", None))
