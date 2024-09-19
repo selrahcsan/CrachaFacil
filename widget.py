@@ -1,6 +1,7 @@
 # This Python file uses the following encoding: utf-8
 import os
 import sys
+import pandas as pd
 import sqlite3
 
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
@@ -12,6 +13,7 @@ from PySide6.QtCore import QDate
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
 #     pyside2-uic form.ui -o ui_form.py
+
 from ui_form import Ui_Widget
 
 def cria_banco_sql():
@@ -77,6 +79,9 @@ def inserir_funcionarios():
 def voltar_menu_funcionarios():
     limpar_formularios()
     widget.ui.stackedWidget.setCurrentIndex(0)
+
+def menu_atualizar():
+    widget.ui.stackedWidget.setCurrentIndex(2)
 
 
 def image_upload():
@@ -162,6 +167,58 @@ def limpar_formularios():
     widget.ui.image_label.clear()
 
 
+def importar_xls():
+    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.xls *.xlsx *ods)")
+    if file_name:
+        try:
+            df = pd.read_excel(file_name)
+            df['data_admissao'] = df['data_admissao'].dt.strftime('%Y-%m-%d')
+            conn = sqlite3.connect('cracha.sqlite')
+            cursor = conn.cursor()
+            for index, row in df.iterrows():
+                cursor.execute('''
+                    INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
+                    VALUES (?, ?, ?, ?, ?)
+                    ''', (row['matricula'], row['nome'], row['cargo'], row['setor'], row['data_admissao']))
+                conn.commit()
+                conn.close()
+                msg = QMessageBox()
+                msg.setText("Dados importados com sucesso!")
+                msg.exec()
+        except Exception as e:
+                msg = QMessageBox()
+                msg.setText(f"Erro ao importar dados: {e}")
+                msg.exec()
+
+def atualizar_funcionarios():
+    try:
+        conn = sqlite3.connect('cracha.sqlite')
+        cursor = conn.cursor()
+        cursor.execute('SELECT matricula, nome, cargo, setor, data_admissao FROM funcionarios')
+        resultados = cursor.fetchall()
+        conn.close()
+        if resultados:
+            widget.ui.lineEdit_atualizar_matricula.setText(str(resultados[0]))
+            widget.ui.lineEdit_atualizar_nome.setText(str(resultados[1]))
+            widget.ui.lineEdit_atualizar_cargo.setText(str(resultados[2]))
+            widget.ui.lineEdit_atualizar_setor.setText(resultados[3])
+            widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultados[4], "yyyy-MM-dd"))
+
+        msg = QMessageBox()
+        msg.setText("Dados importados com sucesso!")
+        msg.exec()
+
+    except sqlite3.Error as e:
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle("Erro")
+        msg.setText("Ocorreu um erro ao consultar o banco:")
+        msg.setInformativeText(f'{e}')
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec()
+
+
+
 class Widget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -173,16 +230,34 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = Widget()
 
-    # Botãos Configurações -----------------------------------------------------------------
-    widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
-    widget.ui.deletar_banco.clicked.connect(deletar_banco)
+    # Botãos Menu Iniciar ------------------------------------------------------------------
+
+    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+    widget.ui.importar_exel.clicked.connect(importar_xls)
+    widget.ui.atualizar.clicked.connect(menu_atualizar)
 
     # Botãos Funcinários - Cadastrar  ------------------------------------------------------
-    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
+
     widget.ui.voltar.clicked.connect(voltar_menu_funcionarios)
     widget.ui.cadastrar.clicked.connect(cadastrar)
     widget.ui.dateEdit_admissao.setDate(QDate.currentDate())
+
     # --------------------------------------------------------------------------------------
+
+    # Botãos Funcionários = Atualizar ------------------------------------------------------
+
+    widget.ui.localizar_mais_um.clicked.connect(atualizar_funcionarios)
+
+    # --------------------------------------------------------------------------------------
+
+    # Botãos Configurações -----------------------------------------------------------------
+
+    widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
+    widget.ui.deletar_banco.clicked.connect(deletar_banco)
+
+
+
+
 
     widget.show()
     sys.exit(app.exec())
