@@ -18,8 +18,8 @@ from ui_form import Ui_Widget
 
 def cria_banco_sql():
     try:
-        conn = sqlite3.connect('cracha.sqlite')
-        cursor = conn.cursor()
+        with sqlite3.connect('cracha.sqlite') as conn:
+            cursor = conn.cursor()
         cria_tabela_sql = """
             CREATE TABLE IF NOT EXISTS funcionarios (
             matricula INTEGER PRIMARY KEY NOT NULL,
@@ -189,14 +189,13 @@ def importar_xls():
 
 def buscar_matricula(matricula):
     try:
-        conn = sqlite3.connect('cracha.sqlite')
-        cursor = conn.cursor()
+        with sqlite3.connect('cracha.sqlite') as conn:
+            cursor = conn.cursor()
         cursor.execute('SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios WHERE matricula = ?', (matricula,))
         resultado = cursor.fetchone()
         conn.close()
 
         if resultado:
-            # widget.ui.lineEdit_atualizar_matricula.setText(str(resultado[0]))
             widget.ui.lineEdit_atualizar_nome.setText(str(resultado[0]))
             widget.ui.lineEdit_atualizar_cargo.setText(str(resultado[1]))
             widget.ui.lineEdit_atualizar_setor.setText(resultado[2])
@@ -207,13 +206,13 @@ def buscar_matricula(matricula):
                 pixmap.loadFromData(foto_blob)
                 widget.ui.image_label_localizar.setScaledContents(True)
                 widget.ui.image_label_localizar.setPixmap(pixmap)
-            else:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Information)
-                msg.setWindowTitle("Informação")
-                msg.setText("Nenhum funcionário encontrado com a matrícula fornecida.")
-                msg.setStandardButtons(QMessageBox.Ok)
-                msg.exec()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Informação")
+            msg.setText("Nenhum funcionário encontrado com a matrícula fornecida.")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec()
 
     except sqlite3.Error as e:
         msg = QMessageBox()
