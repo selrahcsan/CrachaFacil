@@ -20,17 +20,17 @@ def cria_banco_sql():
     try:
         conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
-        create_table_sql = """
+        cria_tabela_sql = """
             CREATE TABLE IF NOT EXISTS funcionarios (
             matricula INTEGER PRIMARY KEY NOT NULL,
             nome TEXT,
             cargo TEXT,
-            setor TEXT,,
+            setor TEXT,
             data_admissao DATE,
             foto BLOB
         );
         """
-        cursor.execute(create_table_sql)
+        cursor.execute(cria_tabela_sql)
         conn.commit()
         conn.close()
         msg = QMessageBox()
