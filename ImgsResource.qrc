@@ -28,5 +28,6 @@
         <file>Imgs/user.png</file>
         <file>Imgs/bancoDeDados.png</file>
         <file>Imgs/bancoDeDados_deletar.png</file>
+        <file>Imgs/logo.png</file>
     </qresource>
 </RCC>
