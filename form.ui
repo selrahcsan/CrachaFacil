@@ -31,7 +31,11 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>CracháFácil - 0.0.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="ImgsResource.qrc">
+    <normaloff>:/PNG/Imgs/logo.png</normaloff>:/PNG/Imgs/logo.png</iconset>
   </property>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
