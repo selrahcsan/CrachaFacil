@@ -258,70 +258,6 @@ def editar_banco():
     widget.ui.lineEdit_atualizar_setor.setReadOnly(False)
 
 
-# def atualizar_banco():
-#     widget.ui.atualizar_localizar.setEnabled(True)
-#     widget.ui.lineEdit_atualizar_nome.setFrame(True)
-#     widget.ui.lineEdit_atualizar_nome.setReadOnly(False)
-#     widget.ui.lineEdit_atualizar_cargo.setFrame(True)
-
-#     nome = widget.ui.lineEdit_atualizar_nome.text().split()[0]
-#     nome_completo = widget.ui.lineEdit_atualizar_nome.text()
-#     cargo = widget.ui.lineEdit_atualizar_cargo.text()
-#     setor = widget.ui.lineEdit_atualizar_setor.text()
-#     matricula = widget.ui.lineEdit_matricula.text()
-#     data_admissao = widget.ui.dateEdit_atualizar_admissao.date().toString("yyyy-MM-dd")
-
-#     msg = QMessageBox()
-#     msg.setIcon(QMessageBox.Question)
-#     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-#     msg.setWindowTitle('Imagem Funcionário')
-#     msg.setText("Atualizar Foto do funcionário?")
-#     msg.setDefaultButton(QMessageBox.Yes)
-#     tem_foto = msg.exec()
-
-#     if tem_foto == QMessageBox.Yes:
-#         file_name = atualizar_image_upload()
-#         if file_name:
-#             imagem = convert_to_binary(file_name)
-#             try:
-#                 conn = sqlite3.connect('cracha.sqlite')
-#                 cursor = conn.cursor()
-#                 cursor.execute('''UPDATE funcionarios SET nome = ?, nome_completo = ?, cargo = ?, setor = ?, data_admissao = ?,
-#                     foto = ? WHERE matricula = ?''', (nome, nome_completo, cargo, setor, data_admissao, imagem, matricula))
-#                 conn.commit()
-#                 conn.close()
-#                 msg = QMessageBox()
-#                 msg.setText("Atualizado com Sucesso")
-#                 msg.exec()
-#                 limpar_formularios()
-#             except sqlite3.Error as e:
-#                 msg.setIcon(QMessageBox.Critical)
-#                 msg.setWindowTitle("Erro")
-#                 msg.setText("Ocorreu um erro ao atualizar no banco:")
-#                 msg.setInformativeText(f'{e}')
-#                 msg.setStandardButtons(QMessageBox.Ok)
-
-#     if tem_foto == QMessageBox.No:
-#         try:
-#             conn = sqlite3.connect('cracha.sqlite')
-#             cursor = conn.cursor()
-#             cursor.execute('''UPDATE funcionarios SET nome = ?, nome_completo = ?, cargo = ?, setor = ?, data_admissao = ?
-#                 WHERE matricula = ?''', (nome, nome_completo, cargo, setor, data_admissao, matricula))
-#             conn.commit()
-#             conn.close()
-#             msg = QMessageBox()
-#             msg.setText("Atualizado com Sucesso")
-#             msg.exec()
-#             limpar_formularios()
-
-#         except sqlite3.Error as e:
-#             msg = QMessageBox()
-#             msg.setIcon(QMessageBox.Critical)
-#             msg.setWindowTitle("Erro")
-#             msg.setText("Ocorreu um erro ao atualizar no banco:")
-#             msg.setInformativeText(f'{e}')
-#             msg.setStandardButtons(QMessageBox.Ok)
-
 def atualizar_banco():
     widget.ui.atualizar_localizar.setEnabled(True)
     widget.ui.lineEdit_atualizar_nome.setFrame(True)
@@ -375,10 +311,6 @@ def atualizar_banco():
 
     finally:
         conn.close()
-
-
-
-
 
 
 class Widget(QWidget):
