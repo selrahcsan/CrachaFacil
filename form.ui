@@ -46,7 +46,7 @@
     <enum>QTabWidget::TabPosition::West</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="iconSize">
     <size>
@@ -72,7 +72,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="menu_funcionarios">
       <widget class="QGroupBox" name="groupBox">
@@ -214,8 +214,8 @@
       <widget class="QPushButton" name="voltar">
        <property name="geometry">
         <rect>
-         <x>500</x>
-         <y>340</y>
+         <x>490</x>
+         <y>350</y>
          <width>181</width>
          <height>51</height>
         </rect>
@@ -240,7 +240,7 @@
          <x>10</x>
          <y>90</y>
          <width>661</width>
-         <height>241</height>
+         <height>247</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout_2">
@@ -323,7 +323,7 @@
        <property name="geometry">
         <rect>
          <x>690</x>
-         <y>340</y>
+         <y>350</y>
          <width>181</width>
          <height>51</height>
         </rect>
@@ -366,7 +366,7 @@
          <x>10</x>
          <y>90</y>
          <width>661</width>
-         <height>234</height>
+         <height>235</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout_4">
