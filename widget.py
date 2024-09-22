@@ -156,28 +156,34 @@ def limpar_formularios():
     widget.ui.image_label.clear()
 
 
+
 def importar_xls():
-    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.xls *.xlsx *ods)")
+    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.xls *.xlsx *.ods)")
     if file_name:
         try:
             df = pd.read_excel(file_name)
             df['data_admissao'] = df['data_admissao'].dt.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('cracha.sqlite')
-            cursor = conn.cursor()
+
+            with sqlite3.connect('cracha.sqlite') as conn:
+                cursor = conn.cursor()
             for index, row in df.iterrows():
+                nome_completo = row['nome']
+                nome = nome_completo.split()[0]
                 cursor.execute('''
-                    INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
-                    VALUES (?, ?, ?, ?, ?)
-                    ''', (row['matricula'], row['nome'], row['cargo'], row['setor'], row['data_admissao']))
-                conn.commit()
-                conn.close()
-                msg = QMessageBox()
-                msg.setText("Dados importados com sucesso!")
-                msg.exec()
+                    INSERT INTO funcionarios (matricula, nome, nome_completo, cargo, setor, data_admissao)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (row['matricula'], nome, nome_completo, row['cargo'], row['setor'], row['data_admissao']))
+            conn.commit()
+            conn.close()
+
+            msg = QMessageBox()
+            msg.setText("Dados importados com sucesso!")
+            msg.exec()
+
         except Exception as e:
-                msg = QMessageBox()
-                msg.setText(f"Erro ao importar dados: {e}")
-                msg.exec()
+            msg = QMessageBox()
+            msg.setText(f"Erro ao importar dados: {e}")
+            msg.exec()
 
 def navegar_banco_usuarios():
     try:
