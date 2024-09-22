@@ -46,7 +46,7 @@
     <enum>QTabWidget::TabPosition::West</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="iconSize">
     <size>
@@ -72,7 +72,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="menu_funcionarios">
       <widget class="QGroupBox" name="groupBox">
@@ -460,17 +460,55 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>340</y>
-         <width>771</width>
+         <width>861</width>
          <height>46</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
+         <widget class="QPushButton" name="btn_retroceder">
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/Imgs/Imgs/move - Copia.ico</normaloff>:/Imgs/Imgs/move - Copia.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_avancar">
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/Imgs/Imgs/move.ico</normaloff>:/Imgs/Imgs/move.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="localizar">
           <property name="text">
            <string>Localizar</string>
+          </property>
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/Imgs/Imgs/magnifier.ico</normaloff>:/Imgs/Imgs/magnifier.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -482,6 +520,16 @@
           <property name="text">
            <string>Editar</string>
           </property>
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/Imgs/Imgs/editor.ico</normaloff>:/Imgs/Imgs/editor.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
@@ -492,12 +540,32 @@
           <property name="text">
            <string>Atualizar</string>
           </property>
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/PNG/Imgs/user.png</normaloff>:/PNG/Imgs/user.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="voltar_localizar_menu_inicial">
           <property name="text">
-           <string>Menu Inicial</string>
+           <string>Voltar</string>
+          </property>
+          <property name="icon">
+           <iconset resource="ImgsResource.qrc">
+            <normaloff>:/Imgs/Imgs/warning.ico</normaloff>:/Imgs/Imgs/warning.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -564,7 +632,7 @@
      <property name="title">
       <string>Criar Banco</string>
      </property>
-     <widget class="QPushButton" name="criar_banco_sqlite">
+     <widget class="QPushButton" name="btn_criar_banco_sqlite">
       <property name="geometry">
        <rect>
         <x>30</x>

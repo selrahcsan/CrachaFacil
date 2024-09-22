@@ -16,6 +16,9 @@ from PySide6.QtCore import QDate
 
 from ui_form import Ui_Widget
 
+resultados = []
+posicao_atual = 0
+
 def cria_banco_sql():
     try:
         with sqlite3.connect('cracha.sqlite') as conn:
@@ -196,11 +199,10 @@ def importar_xls():
 
 
 def buscar_matricula(matricula):
-
     try:
         with sqlite3.connect('cracha.sqlite') as conn:
             cursor = conn.cursor()
-        cursor.execute('SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios WHERE matricula = ?', (matricula,))
+        cursor.execute('SELECT nome_completo, cargo, setor, data_admissao, foto FROM funcionarios WHERE matricula = ?', (matricula,))
         resultado = cursor.fetchone()
         conn.close()
 
@@ -234,6 +236,8 @@ def buscar_matricula(matricula):
 
 
 def localizar_clicked():
+    carregar_resultados()
+    # mostrar_resultado(posicao_atual)
     matricula = widget.ui.lineEdit_atualizar_matricula.text()
     if matricula:
         buscar_matricula(matricula)
@@ -275,8 +279,6 @@ def atualizar_banco():
     try:
         with sqlite3.connect('cracha.sqlite') as conn:
             cursor = conn.cursor()
-
-
         nome = widget.ui.lineEdit_atualizar_nome.text().split()[0]
         nome_completo = widget.ui.lineEdit_atualizar_nome.text()
         cargo = widget.ui.lineEdit_atualizar_cargo.text()
@@ -313,6 +315,58 @@ def atualizar_banco():
         conn.close()
 
 
+def carregar_resultados():
+    global resultados
+    try:
+        conn = sqlite3.connect('cracha.sqlite')
+        cursor = conn.cursor()
+        cursor.execute('''SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios''')
+        resultados = cursor.fetchall()
+        conn.close()
+    except sqlite3.Error as e:
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle("Erro")
+        msg.setText("Ocorreu um erro ao consultar o banco:")
+        msg.setInformativeText(f'{e}')
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec()
+
+def mostrar_resultado(posicao):
+    if 0 <= posicao < len(resultados):
+        resultado = resultados[posicao]
+        widget.ui.lineEdit_atualizar_nome.setText(str(resultado[0]))
+        widget.ui.lineEdit_atualizar_cargo.setText(str(resultado[1]))
+        widget.ui.lineEdit_atualizar_setor.setText(resultado[2])
+        widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultado[3], "yyyy-MM-dd"))
+        foto_blob = resultado[4]
+        if foto_blob:
+            pixmap = QPixmap()
+            pixmap.loadFromData(foto_blob)
+            widget.ui.image_label_localizar.setScaledContents(True)
+            widget.ui.image_label_localizar.setPixmap(pixmap)
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Informação")
+            msg.setText("Nenhum funcionário encontrado.")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec()
+
+def avancar():
+    global posicao_atual
+    if posicao_atual < len(resultados) - 1:
+        posicao_atual += 1
+        mostrar_resultado(posicao_atual)
+
+def recuar():
+    global posicao_atual
+    if posicao_atual > 0:
+        posicao_atual -= 1
+        mostrar_resultado(posicao_atual)
+
+
+
 class Widget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -344,19 +398,18 @@ if __name__ == "__main__":
     widget.ui.localizar.clicked.connect(localizar_clicked)
     widget.ui.editar_localizar.clicked.connect(editar_banco)
     widget.ui.atualizar_localizar.clicked.connect(atualizar_banco)
-
+    widget.ui.btn_retroceder.clicked.connect(recuar)
+    widget.ui.btn_avancar.clicked.connect(avancar)
 
     # --------------------------------------------------------------------------------------
 
     # Botãos Configurações -----------------------------------------------------------------
 
-    widget.ui.criar_banco_sqlite.clicked.connect(banco_existe)
+    widget.ui.btn_criar_banco_sqlite.clicked.connect(banco_existe)
     widget.ui.deletar_banco.clicked.connect(deletar_banco)
     widget.ui.voltar_localizar_menu_inicial.clicked.connect(voltar_menu_funcionarios)
 
-
-
-
+    # --------------------------------------------------------------------------------------
 
     widget.show()
     sys.exit(app.exec())
