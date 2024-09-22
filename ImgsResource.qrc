@@ -26,5 +26,7 @@
         <file>Imgs/portal.png</file>
         <file>Imgs/excel.png</file>
         <file>Imgs/user.png</file>
+        <file>Imgs/bancoDeDados.png</file>
+        <file>Imgs/bancoDeDados_deletar.png</file>
     </qresource>
 </RCC>
