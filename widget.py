@@ -147,6 +147,7 @@ def convert_to_binary(filename):
         blob_data = file.read()
     return blob_data
 
+
 def limpar_formularios():
     widget.ui.lineEdit_nome.clear()
     widget.ui.lineEdit_cargo.clear()
@@ -154,7 +155,6 @@ def limpar_formularios():
     widget.ui.lineEdit_matricula.clear()
     widget.ui.dateEdit_admissao.date().currentDate()
     widget.ui.image_label.clear()
-
 
 
 def importar_xls():
