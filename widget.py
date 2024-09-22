@@ -89,11 +89,19 @@ def menu_atualizar():
 
 def image_upload():
     file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.png *.jpg)")
-
     if file_name:
         pixmap = QPixmap(file_name)
         widget.ui.image_label.setPixmap(pixmap)
         widget.ui.image_label.setScaledContents(True)
+        return file_name
+
+def atualizar_image_upload():
+    file_name, _ = QFileDialog.getOpenFileName(None, "Abrir Arquivo", "", "Arquivos de Imagem (*.png *.jpg)")
+
+    if file_name:
+        pixmap = QPixmap(file_name)
+        widget.ui.image_label_localizar.setPixmap(pixmap)
+        widget.ui.image_label_localizar.setScaledContents(True)
         return file_name
 
 
@@ -139,7 +147,7 @@ def cadastrar():
         try:
             conn = sqlite3.connect('cracha.sqlite')
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO funcionarios (matricula, nome, cargo, setor, data_admissao)
+            cursor.execute('''INSERT INTO funcionarios (matricula, nome, nome_completo, cargo, setor, data_admissao)
                 VALUES (?, ?, ?, ?, ?, ?)''', (matricula, nome, nome_completo, cargo, setor, data_admissao))
             conn.commit()
             conn.close()
@@ -235,7 +243,7 @@ def buscar_matricula(matricula):
     try:
         conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
-        cursor.execute('SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios WHERE matricula = ?', (matricula,))
+        cursor.execute('''SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios WHERE matricula = ?''', (matricula,))
         resultado = cursor.fetchone()
         conn.close()
 
@@ -271,6 +279,7 @@ def buscar_matricula(matricula):
 
 def localizar_clicked():
     limpar_formularios()
+    widget.ui.editar_localizar.setEnabled(True)
     matricula = widget.ui.lineEdit_atualizar_matricula.text()
     if matricula:
         buscar_matricula(matricula)
@@ -282,11 +291,99 @@ def localizar_clicked():
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec()
 
+
+def editar_banco():
+    widget.ui.lineEdit_atualizar_matricula.setFrame(False)
+    widget.ui.lineEdit_atualizar_matricula.setReadOnly(True)
+    widget.ui.atualizar_localizar.setEnabled(True)
+    widget.ui.lineEdit_atualizar_nome.setFrame(True)
+    widget.ui.lineEdit_atualizar_nome.setReadOnly(False)
+    widget.ui.lineEdit_atualizar_cargo.setFrame(True)
+    widget.ui.lineEdit_atualizar_cargo.setReadOnly(False)
+    widget.ui.lineEdit_atualizar_setor.setFrame(True)
+    widget.ui.lineEdit_atualizar_setor.setReadOnly(False)
+
+    nome = widget.ui.lineEdit_atualizar_nome.text().split()[0]
+    nome_completo = widget.ui.lineEdit_atualizar_nome.text()
+    cargo = widget.ui.lineEdit_atualizar_cargo.text()
+    setor = widget.ui.lineEdit_atualizar_setor.text()
+    matricula = widget.ui.lineEdit_matricula.text()
+    data_admissao = widget.ui.dateEdit_atualizar_admissao.date().toString("yyyy-MM-dd")
+
+
+
+def atualizar_banco():
+    widget.ui.atualizar_localizar.setEnabled(True)
+    widget.ui.lineEdit_atualizar_nome.setFrame(True)
+    widget.ui.lineEdit_atualizar_nome.setReadOnly(False)
+    widget.ui.lineEdit_atualizar_cargo.setFrame(True)
+
+    nome = widget.ui.lineEdit_atualizar_nome.text().split()[0]
+    nome_completo = widget.ui.lineEdit_atualizar_nome.text()
+    cargo = widget.ui.lineEdit_atualizar_cargo.text()
+    setor = widget.ui.lineEdit_atualizar_setor.text()
+    matricula = widget.ui.lineEdit_matricula.text()
+    data_admissao = widget.ui.dateEdit_atualizar_admissao.date().toString("yyyy-MM-dd")
+
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Question)
+    msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    msg.setWindowTitle('Imagem Funcionário')
+    msg.setText("Atualizar Foto do funcionário?")
+    msg.setDefaultButton(QMessageBox.Yes)
+    tem_foto = msg.exec()
+
+    if tem_foto == QMessageBox.Yes:
+        file_name = atualizar_image_upload()
+        if file_name:
+            imagem = convert_to_binary(file_name)
+            try:
+                conn = sqlite3.connect('cracha.sqlite')
+                cursor = conn.cursor()
+                cursor.execute('''UPDATE funcionarios SET nome = ?, nome_completo = ?, cargo = ?, setor = ?, data_admissao = ?,
+                    foto = ? WHERE matricula = ?''', (nome, nome_completo, cargo, setor, data_admissao, imagem, matricula))
+                conn.commit()
+                conn.close()
+                msg = QMessageBox()
+                msg.setText("Atualizado com Sucesso")
+                msg.exec()
+                limpar_formularios()
+            except sqlite3.Error as e:
+                msg.setIcon(QMessageBox.Critical)
+                msg.setWindowTitle("Erro")
+                msg.setText("Ocorreu um erro ao atualizar no banco:")
+                msg.setInformativeText(f'{e}')
+                msg.setStandardButtons(QMessageBox.Ok)
+
+    if tem_foto == QMessageBox.No:
+        try:
+            conn = sqlite3.connect('cracha.sqlite')
+            cursor = conn.cursor()
+            cursor.execute('''UPDATE funcionarios SET nome = ?, nome_completo = ?, cargo = ?, setor = ?, data_admissao = ?
+                WHERE matricula = ?''', (nome, nome_completo, cargo, setor, data_admissao, matricula))
+            conn.commit()
+            conn.close()
+            msg = QMessageBox()
+            msg.setText("Atualizado com Sucesso")
+            msg.exec()
+            limpar_formularios()
+
+        except sqlite3.Error as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle("Erro")
+            msg.setText("Ocorreu um erro ao atualizar no banco:")
+            msg.setInformativeText(f'{e}')
+            msg.setStandardButtons(QMessageBox.Ok)
+
+
 class Widget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_Widget()
         self.ui.setupUi(self)
+
+
 
 
 if __name__ == "__main__":
@@ -309,8 +406,10 @@ if __name__ == "__main__":
 
     # Botãos Funcionários = Atualizar ------------------------------------------------------
 
-    widget.ui.localizar_mais_um.clicked.connect(navegar_banco_usuarios)
+
     widget.ui.localizar.clicked.connect(localizar_clicked)
+    widget.ui.editar_localizar.clicked.connect(editar_banco)
+    widget.ui.atualizar_localizar.clicked.connect(atualizar_banco)
 
     # --------------------------------------------------------------------------------------
 
