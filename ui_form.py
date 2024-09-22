@@ -25,7 +25,14 @@ class Ui_Widget(object):
     def setupUi(self, Widget):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
+        Widget.setWindowModality(Qt.WindowModality.WindowModal)
         Widget.resize(1094, 445)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Widget.sizePolicy().hasHeightForWidth())
+        Widget.setSizePolicy(sizePolicy)
+        Widget.setMaximumSize(QSize(1094, 445))
         font = QFont()
         font.setPointSize(20)
         Widget.setFont(font)
