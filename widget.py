@@ -87,6 +87,7 @@ def voltar_menu_funcionarios():
 def menu_atualizar():
     widget.ui.stackedWidget.setCurrentIndex(2)
     widget.ui.dateEdit_atualizar_admissao.date().currentDate()
+    carregar_resultados()
 
 
 def image_upload():
@@ -236,7 +237,6 @@ def buscar_matricula(matricula):
 
 
 def localizar_clicked():
-    carregar_resultados()
     # mostrar_resultado(posicao_atual)
     matricula = widget.ui.lineEdit_atualizar_matricula.text()
     if matricula:
@@ -320,7 +320,7 @@ def carregar_resultados():
     try:
         conn = sqlite3.connect('cracha.sqlite')
         cursor = conn.cursor()
-        cursor.execute('''SELECT nome, cargo, setor, data_admissao, foto FROM funcionarios''')
+        cursor.execute('''SELECT matricula, nome, cargo, setor, data_admissao, foto FROM funcionarios''')
         resultados = cursor.fetchall()
         conn.close()
     except sqlite3.Error as e:
@@ -335,11 +335,12 @@ def carregar_resultados():
 def mostrar_resultado(posicao):
     if 0 <= posicao < len(resultados):
         resultado = resultados[posicao]
-        widget.ui.lineEdit_atualizar_nome.setText(str(resultado[0]))
-        widget.ui.lineEdit_atualizar_cargo.setText(str(resultado[1]))
-        widget.ui.lineEdit_atualizar_setor.setText(resultado[2])
-        widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultado[3], "yyyy-MM-dd"))
-        foto_blob = resultado[4]
+        widget.ui.lineEdit_atualizar_matricula.setText(str(resultado[0]))
+        widget.ui.lineEdit_atualizar_nome.setText(str(resultado[1]))
+        widget.ui.lineEdit_atualizar_cargo.setText(str(resultado[2]))
+        widget.ui.lineEdit_atualizar_setor.setText(resultado[3])
+        widget.ui.dateEdit_atualizar_admissao.setDate(QDate.fromString(resultado[4], "yyyy-MM-dd"))
+        foto_blob = resultado[5]
         if foto_blob:
             pixmap = QPixmap()
             pixmap.loadFromData(foto_blob)
@@ -380,9 +381,9 @@ if __name__ == "__main__":
 
     # Botãos Menu Iniciar ------------------------------------------------------------------
 
-    widget.ui.inserir_funcionario.clicked.connect(inserir_funcionarios)
-    widget.ui.importar_exel.clicked.connect(importar_xls)
-    widget.ui.atualizar.clicked.connect(menu_atualizar)
+    widget.ui.btn_inserir_funcionario.clicked.connect(inserir_funcionarios)
+    widget.ui.btn_importar_exel.clicked.connect(importar_xls)
+    widget.ui.btn_atualizar.clicked.connect(menu_atualizar)
 
     # Botãos Funcinários - Cadastrar  ------------------------------------------------------
 
