@@ -1,1 +1,30 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/Imgs">
+        <file>Imgs/calendar.ico</file>
+        <file>Imgs/camera.ico</file>
+        <file>Imgs/check.ico</file>
+        <file>Imgs/clipboard.ico</file>
+        <file>Imgs/community.ico</file>
+        <file>Imgs/controlpanel.ico</file>
+        <file>Imgs/delete.ico</file>
+        <file>Imgs/deny.ico</file>
+        <file>Imgs/editor.ico</file>
+        <file>Imgs/excel.ico</file>
+        <file>Imgs/explorer2.ico</file>
+        <file>Imgs/feedback.ico</file>
+        <file>Imgs/help.ico</file>
+        <file>Imgs/magnifier.ico</file>
+        <file>Imgs/move - Copia.ico</file>
+        <file>Imgs/move.ico</file>
+        <file>Imgs/people.ico</file>
+        <file>Imgs/portal.ico</file>
+        <file>Imgs/settings.ico</file>
+        <file>Imgs/users.ico</file>
+        <file>Imgs/warning.ico</file>
+    </qresource>
+    <qresource prefix="/PNG">
+        <file>Imgs/portal.png</file>
+        <file>Imgs/excel.png</file>
+        <file>Imgs/user.png</file>
+    </qresource>
+</RCC>
