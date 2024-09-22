@@ -250,19 +250,6 @@
         <string>Atualizar Funcionários : </string>
        </property>
       </widget>
-      <widget class="QPushButton" name="localizar_mais_um">
-       <property name="geometry">
-        <rect>
-         <x>430</x>
-         <y>250</y>
-         <width>80</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
@@ -296,6 +283,9 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="lineEdit_atualizar_nome">
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -310,6 +300,9 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="lineEdit_atualizar_cargo">
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -324,6 +317,9 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="lineEdit_atualizar_setor">
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -338,6 +334,9 @@
         </item>
         <item row="4" column="1">
          <widget class="QDateEdit" name="dateEdit_atualizar_admissao">
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -366,14 +365,20 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="voltar_2">
+         <widget class="QPushButton" name="editar_localizar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Editar</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="cadastrar_2">
+         <widget class="QPushButton" name="atualizar_localizar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Atualizar</string>
           </property>

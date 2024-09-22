@@ -134,9 +134,6 @@ class Ui_Widget(object):
         self.label_12.setObjectName(u"label_12")
         self.label_12.setGeometry(QRect(9, 0, 311, 31))
         self.label_12.setFont(font)
-        self.localizar_mais_um = QPushButton(self.atualizar_funcionarios)
-        self.localizar_mais_um.setObjectName(u"localizar_mais_um")
-        self.localizar_mais_um.setGeometry(QRect(430, 250, 80, 24))
         self.layoutWidget1 = QWidget(self.atualizar_funcionarios)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
         self.layoutWidget1.setGeometry(QRect(0, 50, 351, 151))
@@ -161,6 +158,7 @@ class Ui_Widget(object):
 
         self.lineEdit_atualizar_nome = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_nome.setObjectName(u"lineEdit_atualizar_nome")
+        self.lineEdit_atualizar_nome.setFrame(False)
         self.lineEdit_atualizar_nome.setReadOnly(True)
 
         self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.lineEdit_atualizar_nome)
@@ -172,6 +170,7 @@ class Ui_Widget(object):
 
         self.lineEdit_atualizar_cargo = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_cargo.setObjectName(u"lineEdit_atualizar_cargo")
+        self.lineEdit_atualizar_cargo.setFrame(False)
         self.lineEdit_atualizar_cargo.setReadOnly(True)
 
         self.formLayout_4.setWidget(2, QFormLayout.FieldRole, self.lineEdit_atualizar_cargo)
@@ -183,6 +182,7 @@ class Ui_Widget(object):
 
         self.lineEdit_atualizar_setor = QLineEdit(self.layoutWidget1)
         self.lineEdit_atualizar_setor.setObjectName(u"lineEdit_atualizar_setor")
+        self.lineEdit_atualizar_setor.setFrame(False)
         self.lineEdit_atualizar_setor.setReadOnly(True)
 
         self.formLayout_4.setWidget(3, QFormLayout.FieldRole, self.lineEdit_atualizar_setor)
@@ -194,6 +194,7 @@ class Ui_Widget(object):
 
         self.dateEdit_atualizar_admissao = QDateEdit(self.layoutWidget1)
         self.dateEdit_atualizar_admissao.setObjectName(u"dateEdit_atualizar_admissao")
+        self.dateEdit_atualizar_admissao.setFrame(False)
         self.dateEdit_atualizar_admissao.setReadOnly(True)
         self.dateEdit_atualizar_admissao.setCalendarPopup(True)
 
@@ -210,15 +211,17 @@ class Ui_Widget(object):
 
         self.horizontalLayout.addWidget(self.localizar)
 
-        self.voltar_2 = QPushButton(self.layoutWidget2)
-        self.voltar_2.setObjectName(u"voltar_2")
+        self.editar_localizar = QPushButton(self.layoutWidget2)
+        self.editar_localizar.setObjectName(u"editar_localizar")
+        self.editar_localizar.setEnabled(False)
 
-        self.horizontalLayout.addWidget(self.voltar_2)
+        self.horizontalLayout.addWidget(self.editar_localizar)
 
-        self.cadastrar_2 = QPushButton(self.layoutWidget2)
-        self.cadastrar_2.setObjectName(u"cadastrar_2")
+        self.atualizar_localizar = QPushButton(self.layoutWidget2)
+        self.atualizar_localizar.setObjectName(u"atualizar_localizar")
+        self.atualizar_localizar.setEnabled(False)
 
-        self.horizontalLayout.addWidget(self.cadastrar_2)
+        self.horizontalLayout.addWidget(self.atualizar_localizar)
 
         self.voltar_localizar_menu_inicial = QPushButton(self.layoutWidget2)
         self.voltar_localizar_menu_inicial.setObjectName(u"voltar_localizar_menu_inicial")
@@ -266,15 +269,14 @@ class Ui_Widget(object):
         self.label_4.setText(QCoreApplication.translate("Widget", u"Matr\u00edcula :", None))
         self.label_5.setText(QCoreApplication.translate("Widget", u"Admiss\u00e3o :", None))
         self.label_12.setText(QCoreApplication.translate("Widget", u"Atualizar Funcion\u00e1rios : ", None))
-        self.localizar_mais_um.setText(QCoreApplication.translate("Widget", u"PushButton", None))
         self.label_16.setText(QCoreApplication.translate("Widget", u"Matr\u00edcula :", None))
         self.label_13.setText(QCoreApplication.translate("Widget", u"Nome :", None))
         self.label_14.setText(QCoreApplication.translate("Widget", u"Cargo :", None))
         self.label_15.setText(QCoreApplication.translate("Widget", u"Setor :  ", None))
         self.label_17.setText(QCoreApplication.translate("Widget", u"Admiss\u00e3o :", None))
         self.localizar.setText(QCoreApplication.translate("Widget", u"Localizar", None))
-        self.voltar_2.setText(QCoreApplication.translate("Widget", u"Editar", None))
-        self.cadastrar_2.setText(QCoreApplication.translate("Widget", u"Atualizar", None))
+        self.editar_localizar.setText(QCoreApplication.translate("Widget", u"Editar", None))
+        self.atualizar_localizar.setText(QCoreApplication.translate("Widget", u"Atualizar", None))
         self.voltar_localizar_menu_inicial.setText(QCoreApplication.translate("Widget", u"Menu Inicial", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Widget", u"Funcion\u00e1rios", None))
         self.criar_banco_sqlite.setText(QCoreApplication.translate("Widget", u"Criar Banco", None))
