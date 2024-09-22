@@ -168,7 +168,7 @@ def limpar_formularios():
     widget.ui.lineEdit_matricula.clear()
     widget.ui.dateEdit_admissao.date().currentDate()
     widget.ui.image_label.clear()
-    widget.ui.lineEdit_atualizar_matricula.clear()
+    # widget.ui.lineEdit_atualizar_matricula.clear()
     widget.ui.lineEdit_atualizar_nome.clear()
     widget.ui.lineEdit_atualizar_cargo.clear()
     widget.ui.lineEdit_atualizar_setor.clear()
@@ -262,9 +262,6 @@ def localizar_clicked():
         msg.exec()
 
 def editar_banco():
-    limpar_formularios()
-    widget.ui.lineEdit_atualizar_matricula.setFrame(False)
-    widget.ui.lineEdit_atualizar_matricula.setReadOnly(True)
     widget.ui.atualizar_localizar.setEnabled(True)
     widget.ui.lineEdit_atualizar_nome.setFrame(True)
     widget.ui.lineEdit_atualizar_nome.setReadOnly(False)
@@ -344,6 +341,7 @@ def carregar_resultados():
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec()
 
+
 def mostrar_resultado(posicao):
     limpar_formularios()
     if 0 <= posicao < len(resultados):
@@ -359,26 +357,21 @@ def mostrar_resultado(posicao):
             pixmap.loadFromData(foto_blob)
             widget.ui.image_label_localizar.setScaledContents(True)
             widget.ui.image_label_localizar.setPixmap(pixmap)
-        # else:
-        #     msg = QMessageBox()
-        #     msg.setIcon(QMessageBox.Information)
-        #     msg.setWindowTitle("Informação")
-        #     msg.setText("Nenhum funcionário encontrado.")
-        #     msg.setStandardButtons(QMessageBox.Ok)
-        #     msg.exec()
+
 
 def avancar():
     global posicao_atual
+    widget.ui.editar_localizar.setEnabled(True)
     if posicao_atual < len(resultados) - 1:
         posicao_atual += 1
         mostrar_resultado(posicao_atual)
 
 def recuar():
     global posicao_atual
+    widget.ui.editar_localizar.setEnabled(True)
     if posicao_atual > 0:
         posicao_atual -= 1
         mostrar_resultado(posicao_atual)
-
 
 
 class Widget(QWidget):
